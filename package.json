@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["youtube", "download", "audio", "video", "ytdl"],
-  "author": "Your Name",
+  "author": "Indra",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1" // axios dependency
+    "axios": "latest" // axios dependency
   }
 }

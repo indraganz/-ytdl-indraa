@@ -1,5 +1,5 @@
 {
-  "name": "ytdl-api",
+  "name": "@ndra/ytdl",
   "version": "1.0.0",
   "description": "A module to fetch download links for audio (MP3) and video (MP4) from YouTube.",
   "main": "index.js",

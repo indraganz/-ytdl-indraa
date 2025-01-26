@@ -1,26 +1,66 @@
 const axios = require('axios');
-class Ytdl {
-    
-    static async mp3(url) {
-        try {
-            const response = await axios.get(`https://ytdl.axeel.my.id/api/download/audio?url=${url}`);
-            return response.data.downloads.url; 
-              } catch (error) {
-            console.error('Failed to fetch audio', error);
-            return null;
-        }
-    }
 
-    
-    static async mp4(url) {
-        try {
-            const response = await axios.get(`https://ytdl.axeel.my.id/api/download/video?url=${url}`);
-            return response.data.downloads.url; 
-        } catch (error) {
-            console.error('Failed to fetch video', error);
-            return null;
-        }
-    }
-}
+const Api = {
+  // Fetch audio (MP3) download link
+  async ytmp3(urls) {
+    try {
+      const response = await axios.get(`https://ytdl.axeel.my.id/api/download/audio?url=${urls}`);
+      const data = response.data;
 
-module.exports = Ytdl;
+      return {
+        status: true,
+        message: "Success",
+        owner: "Indra dev", // Updated owner to Indra dev
+        data: {
+          id: data.metadata.videoId,
+          title: data.metadata.title,
+          desc: data.metadata.description,
+          imej: data.metadata.thumbnail.url,
+          thumb: data.metadata.thumbnail.url, // assuming thumbnail image URL
+          uploadTime: data.metadata.duration, // Assuming duration can be treated as "uploadTime"
+          views: data.metadata.likes, // Use likes as views here
+          name: data.metadata.author,
+          download: data.downloads.url, // MP3 download link
+        },
+      };
+    } catch (e) {
+      return {
+        status: false,
+        message: "Error occurred",
+      };
+    }
+  },
+
+  // Fetch video (MP4) download link
+  async ytmp4(urls) {
+    try {
+      const response = await axios.get(`https://ytdl.axeel.my.id/api/download/video?url=${urls}`);
+      const data = response.data;
+
+      return {
+        status: true,
+        message: "Success",
+        owner: "Indra dev", // Updated owner to Indra dev
+        data: {
+          id: data.metadata.videoId,
+          title: data.metadata.title,
+          desc: data.metadata.description,
+          imej: data.metadata.thumbnail.url,
+          thumb: data.metadata.thumbnail.url, // assuming thumbnail image URL
+          uploadTime: data.metadata.duration, // Assuming duration can be treated as "uploadTime"
+          views: data.metadata.likes, // Use likes as views here
+          name: data.metadata.author,
+          download: data.downloads.url, // MP4 download link
+        },
+      };
+    } catch (e) {
+      return {
+        status: false,
+        message: "Error occurred",
+      };
+    }
+  },
+};
+
+// Export the Api object for use in other modules
+module.exports = Api;
